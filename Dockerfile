@@ -10,7 +10,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone \
   && apt-get -y clean && apt-get -y autoclean \
   && dpkg-reconfigure -f noninteractive tzdata \
   && pip3 install -r /opt/code/requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --extra-index-url https://pypi.python.org/simple --trusted-host mirrors.aliyun.com \
-  && rm -rf /root/.cache && rm -rf /tmp/*
+  && rm -rf /root/.cache && rm -rf /tmp/* && rm /opt/code/docker-comp*.yml
 
 ENV PYTHONPATH = /opt/code/
 WORKDIR /opt/code/

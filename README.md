@@ -4,7 +4,7 @@
 ![main test](https://github.com/tonghs/jarvis-bot/actions/workflows/push_to_main.yml/badge.svg)
 
 
-my telegram bot
+a telegram bot
 
 ## dev
 
@@ -21,7 +21,7 @@ cd libs/google/ python google_auth.py
 ```
 
 ```shell
-python manager.py bot.py
+python manager.py main.py
 ```
 
 ## run test
