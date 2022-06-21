@@ -1,7 +1,7 @@
 # jarvis
 
 ![pr test workflow](https://github.com/tonghs/jarvis/actions/workflows/pr_test.yml/badge.svg)
-![master test](https://github.com/tonghs/jarvis/actions/workflows/push_to_master.yml/badge.svg)
+![main test](https://github.com/tonghs/jarvis/actions/workflows/push_to_main.yml/badge.svg)
 
 
 my telegram bot
