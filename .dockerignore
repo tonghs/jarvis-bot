@@ -1,4 +1,7 @@
 libs/google/token.json
 libs/google/credentials.json
 docker-compose.yml
-onar-project.properties
+sonar-project.properties
+
+.git/
+__pycache__

@@ -1,20 +1,15 @@
 import os.path
 
-from config import GOOGLE_SHEET_URL, GOOGLE_DRIVE_DATA_DIR
 from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
-from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
+from config import GOOGLE_SHEET_URL, GOOGLE_DRIVE_DATA_DIR
 
 
 # If modifying these scopes, you need to reload credential.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-
-
-class GoogleCredentialError(Exception):
-    def __init__(self, message):
-        self.message = message
 
 
 class GoogleClient:
@@ -43,7 +38,7 @@ class GoogleClient:
 
     def get_sheet(self, sheet_id, sample_range):
         # Call the Sheets API
-        sheet = self.sheet_service.spreadsheets()
+        sheet = self.sheet_service.spreadsheets()  # pylint: disable=E1101
         result = sheet.values().get(spreadsheetId=sheet_id,
                                     range=sample_range).execute()
         values = result.get('values', [])
@@ -63,7 +58,7 @@ class GoogleClient:
             }
         }
 
-        spreadsheet = self.sheet_service.spreadsheets().create(body=spreadsheet_body).execute()
+        spreadsheet = self.sheet_service.spreadsheets().create(body=spreadsheet_body).execute()  # pylint: disable=E1101
 
         return spreadsheet.get('spreadsheetId'), spreadsheet.get('spreadsheetUrl')
 
@@ -78,8 +73,7 @@ class GoogleClient:
         media = MediaFileUpload(file_path,
                                 mimetype='text/csv',
                                 resumable=True)
-        resp = self.drive_service.files().create(body=file_metadata,
-                                                 media_body=media).execute()
+        resp = self.drive_service.files().create(body=file_metadata, media_body=media).execute()  # pylint: disable=E1101
         doc_id = resp.get('id')
         return doc_id, f'{GOOGLE_SHEET_URL}{doc_id}/edit'
 
