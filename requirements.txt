@@ -1,7 +1,9 @@
 python-telegram-bot==12.2.0
 requests==2.25.0
 simplejson==3.17.2
+xlsxwriter==1.0.2
 google-api-python-client==1.12.6
 google-auth-httplib2==0.0.4
 google-auth-oauthlib==0.4.2
 pandas==1.4.2
+openpyxl==3.0.10

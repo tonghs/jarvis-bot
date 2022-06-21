@@ -1,0 +1,4 @@
+libs/google/token.json
+libs/google/credentials.json
+docker-compose.yml
+onar-project.properties

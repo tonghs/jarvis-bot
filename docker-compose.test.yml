@@ -4,6 +4,7 @@ services:
     restart: always
     container_name: jarvis
     command: bash -c 'pip3 install -i http://mirrors.aliyun.com/pypi/simple/ --extra-index-url https://pypi.python.org/simple --trusted-host mirrors.aliyun.com pytest pytest-mock pytest-cov && cd /opt/src/ && ci/run_test.sh'
-    image: jarvis
+    image: tonghs/jarvis:latest
     volumes:
       - .:/opt/src
+      - <you-google-api-credentials.json>:/opt/code/libs/google/create.json

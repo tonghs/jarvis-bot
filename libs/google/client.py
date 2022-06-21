@@ -1,12 +1,11 @@
 import os.path
-import pickle
-import time
 
-from config import GOOGLE_SHEET_URL
+from config import GOOGLE_SHEET_URL, GOOGLE_DRIVE_DATA_DIR
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
-from libs.google.google_auth import main as auth
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
 
 
 # If modifying these scopes, you need to reload credential.
@@ -21,17 +20,23 @@ class GoogleCredentialError(Exception):
 class GoogleClient:
     def __init__(self):
         path = os.path.dirname(os.path.abspath(__file__))
-        pickle_file = os.path.join(path, 'token.pickle')
-        creds = None
-        if os.path.exists(pickle_file):
-            with open(pickle_file, 'rb') as token:
-                creds = pickle.load(token)
+        token_file = os.path.join(path, 'token.json')
+        credentials_file = os.path.join(path, 'credentials.json')
 
-        if not creds:
-            raise GoogleCredentialError('credential 不存在')
-        if not creds.valid and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-            # raise GoogleCredentialError('credential 无效')
+        creds = None
+        if os.path.exists(token_file):
+            creds = Credentials.from_authorized_user_file(token_file, SCOPES)
+
+        # If there are no (valid) credentials available, let the user log in.
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                flow = InstalledAppFlow.from_client_secrets_file(credentials_file, SCOPES)
+                creds = flow.run_local_server(port=0)
+            # Save the credentials for the next run
+            with open(token_file, 'w') as token:
+                token.write(creds.to_json())
 
         self.sheet_service = build('sheets', 'v4', credentials=creds)
         self.drive_service = build('drive', 'v3', credentials=creds)
@@ -62,12 +67,12 @@ class GoogleClient:
 
         return spreadsheet.get('spreadsheetId'), spreadsheet.get('spreadsheetUrl')
 
-    def update_csv_file(self, file_path, file_name='', parent_id='1nOwSsQcBYkFCXgRRbFCSIdMJU-LAi5hn'):
+    def update_csv_file(self, file_path, file_name=''):
         file_name = file_name if file_name else file_path.split('/')[-1]
         file_metadata = {
             'name': file_name,
             'mimeType': 'application/vnd.google-apps.spreadsheet',
-            'parents': [parent_id]
+            'parents': [GOOGLE_DRIVE_DATA_DIR]
         }
 
         media = MediaFileUpload(file_path,
@@ -79,13 +84,8 @@ class GoogleClient:
         return doc_id, f'{GOOGLE_SHEET_URL}{doc_id}/edit'
 
 
-try:
-    client = GoogleClient()
-except GoogleCredentialError:
-    auth()
-    time.sleep(3)
-    client = GoogleClient()
+client = GoogleClient()
 
 
 if __name__ == '__main__':
-    client.update_csv_file('/home/tonghs/recipes_mahui.csv')
+    client.update_csv_file('/home/tonghs/recipes.csv')

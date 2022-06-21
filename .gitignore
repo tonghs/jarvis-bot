@@ -111,3 +111,4 @@ ci/index.txt
 docker-compose.yml
 *.pickle
 libs/google/credentials.json
+libs/google/token.json

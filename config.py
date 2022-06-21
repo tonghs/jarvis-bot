@@ -7,14 +7,15 @@ DEBUG = bool(os.environ.get('DEBUG', False))
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 CHAT_ID = os.environ.get('CHAT_ID')
 
-TELEGRAM_API_URI = 'https://api.telegram.org'
-GET_FILE_API = f'https://{TELEGRAM_API_URI}/bot{BOT_TOKEN}/getFile?file_id={{file_id}}'
-TELEGRAM_FILE_URL = f'https://{TELEGRAM_API_URI}/file/bot{BOT_TOKEN}/{{file_path}}'
-BOT_MSG_URL = f'https://{TELEGRAM_API_URI}/bot{BOT_TOKEN}/sendMessage'
+TELEGRAM_API_HOST = 'api.telegram.org'
+GET_FILE_API = f'https://{TELEGRAM_API_HOST}/bot{BOT_TOKEN}/getFile?file_id={{file_id}}'
+TELEGRAM_FILE_URL = f'https://{TELEGRAM_API_HOST}/file/bot{BOT_TOKEN}/{{file_path}}'
+BOT_MSG_URL = f'https://{TELEGRAM_API_HOST}/bot{BOT_TOKEN}/sendMessage'
 
-GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
-GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
+# Google Sheet
 GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/'
+GOOGLE_DRIVE_DATA_DIR = os.environ.get('GOOGLE_DRIVE_DATA_DIR')
+
 
 TMP_FILE_DIR = '/tmp'
 
