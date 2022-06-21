@@ -109,6 +109,5 @@ venv.bak/
 ci/index.txt
 
 docker-compose.yml
-sonar-project.properties
 *.pickle
 libs/google/credentials.json
