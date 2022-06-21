@@ -24,8 +24,13 @@ cd libs/google/ python google_auth.py
 python manager.py bot.py
 ```
 
+## run test
+```shell
+make build && make test
+```
 
-## 目录结构
+## run
 
-* bot.py  启动文件
-* view.py message handler 文件
+```shell
+make build && docker-compose up
+```
