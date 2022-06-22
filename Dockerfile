@@ -12,7 +12,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone \
 
 ADD ./ /opt/code/
 RUN pip3 install -r /opt/code/requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --extra-index-url https://pypi.python.org/simple --trusted-host mirrors.aliyun.com \
-  && rm -rf /root/.cache && rm -rf /tmp/*
+  && rm -rf /root/.cache && rm -rf /tmp/* && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/code/
 CMD ["/usr/bin/python3", "main.py"]
