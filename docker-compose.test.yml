@@ -3,7 +3,7 @@ services:
   jarvis:
     restart: always
     container_name: jarvis
-    command: bash -c 'pip3 install -i http://mirrors.aliyun.com/pypi/simple/ --extra-index-url https://pypi.python.org/simple --trusted-host mirrors.aliyun.com pytest pytest-mock pytest-cov && cd /opt/src/ && ci/run_test.sh'
+    command: bash -c 'pip3 install -i http://mirrors.aliyun.com/pypi/simple/ --extra-index-url https://pypi.douban.com/simple --trusted-host mirrors.aliyun.com pytest pytest-mock pytest-cov && cd /opt/src/ && ci/run_test.sh'
     image: tonghs/jarvis:latest
     volumes:
       - .:/opt/src

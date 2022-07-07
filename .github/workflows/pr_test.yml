@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sed -i 's/ http:\/\/mirrors.aliyun.com\/pypi\/simple\/ --extra-index-url https:\/\/pypi.douban.com\/simple --trusted-host mirrors.aliyun.com/ /g' Dockerfile
-      - run: sed -i 's/ http:\/\/mirrors.aliyun.com\/pypi\/simple\/ --extra-index-url https:\/\/pypi.douban.com\/simple --trusted-host mirrors.aliyun.com/ /g' docker-compose.test.yml
+      - run: sed -i 's/ -i http:\/\/mirrors.aliyun.com\/pypi\/simple\/ --extra-index-url https:\/\/pypi.douban.com\/simple --trusted-host mirrors.aliyun.com/ /g' Dockerfile
+      - run: sed -i 's/ -i http:\/\/mirrors.aliyun.com\/pypi\/simple\/ --extra-index-url https:\/\/pypi.douban.com\/simple --trusted-host mirrors.aliyun.com/ /g' docker-compose.test.yml
       - run: make build && make test
