@@ -15,11 +15,6 @@ Python 3.8
 pip install -r requirements.dev.txt
 ```
 
-Google Auth
-```shell
-cd libs/google/ python google_auth.py
-```
-
 ```shell
 python manager.py main.py
 ```

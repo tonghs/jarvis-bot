@@ -20,7 +20,7 @@ def help(update, context):
 /b64decode <txt> - base64 decode
 /help - get help
 /hello - say hello to me
-* 发送 csv 自动上传到 Google Drive 并返回链接
+* 发送 csv 转换成 excel 并返回链接
 * 发送图片输入 md/url 可返回图片的 markdown/url 地址
     """
     update.message.reply_text(txt)

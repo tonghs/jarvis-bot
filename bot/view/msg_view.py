@@ -2,7 +2,8 @@ import os
 import time
 
 from config import TMP_FILE_DIR
-from libs.google.client import client as google_client
+from telegram import InputFile
+from utils.doc_util import csv_to_excel
 from utils.string_util import sql_result_to_csv
 
 
@@ -16,7 +17,9 @@ def text_sql_result_msg_handler(update, content):
         f.write(csv_str)
 
     update.message.reply_document(document=open(tmp_file, 'rb'))
-    update.message.reply_text('uploading to Google Sheet...')
-    _, doc_url = google_client.update_csv_file(tmp_file)
 
-    update.message.reply_text(doc_url)
+    update.message.reply_text('converting csv to xlsx...')
+    with open(csv_to_excel(tmp_file), 'rb') as f:
+        input_file = InputFile(f, filename=f"{tmp_file}.xlsx")
+
+    update.message.reply_document(document=input_file)

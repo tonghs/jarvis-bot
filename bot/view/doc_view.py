@@ -1,11 +1,10 @@
 import os
 
-import pandas as pd
 import requests
 from bot.const import IMG_URL_TYPE
 from config import GET_FILE_API, TELEGRAM_FILE_URL, TMP_FILE_DIR
-from libs.google.client import client as google_client
 from telegram import InputFile
+from utils.doc_util import csv_to_excel
 
 
 def _get_telegram_file(file_id, caption):
@@ -20,15 +19,6 @@ def _get_telegram_file(file_id, caption):
         return f"![]({url})"
     else:
         return url
-
-
-def _csv_to_excel(path):
-    read_file = pd.read_csv(path)
-    header = list(read_file.dtypes.to_dict().keys())
-    excel_file_path = f"{path.split('.')[0]}.xlsx"
-    read_file.to_excel(excel_file_path, index=True, header=header, index_label=None)
-
-    return excel_file_path
 
 
 def _download_tmp_file(url, file_name):
@@ -69,19 +59,13 @@ def csv_msg_handler(update, context):
         tmp_file = _download_tmp_file(url, file_name)
 
         update.message.reply_text('converting csv to xlsx...')
-        with open(_csv_to_excel(tmp_file), 'rb') as f:
+        with open(csv_to_excel(tmp_file), 'rb') as f:
             input_file = InputFile(f, filename=file_name.replace(ext_name, ".xlsx"))
-
-        update.message.reply_text(f'uploading {file_name} to Google Sheet...')
-        _, doc_url = google_client.update_csv_file(tmp_file)
 
         msg = f"""
 **👍 {file_name} is ready!**
 
 csv file_url: {url}
-
-google_doc: {doc_url}
-
         """
         update.message.reply_text(msg)
         update.message.reply_document(document=input_file)

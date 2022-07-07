@@ -7,4 +7,3 @@ services:
     image: tonghs/jarvis:latest
     volumes:
       - .:/opt/src
-      - <you-google-api-credentials.json>:/opt/code/libs/google/create.json
