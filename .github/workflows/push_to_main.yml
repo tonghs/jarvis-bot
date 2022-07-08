@@ -19,7 +19,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           args: >
-            -Dsonar.python.coverage.reportPaths=coverage-reports/*.xml
+            -Dsonar.python.coverage.reportPaths=coverage-reports/*-coverage.xml
             -Dsonar.tests=utils/,bot/
             -Dsonar.verbose=true
       # If you wish to fail your job when the Quality Gate is red, uncomment the
