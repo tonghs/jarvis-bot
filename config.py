@@ -16,3 +16,7 @@ TMP_FILE_DIR = '/tmp'
 
 # sentry
 SENTRY_DSN = os.environ.get('SENTRY_DSN')
+
+# tencent
+TENCENT_SECRET_ID = os.environ.get('TENCENT_SECRET_ID', '')
+TENCENT_SECRET_KEY = os.environ.get('TENCENT_SECRET_KEY', '')
